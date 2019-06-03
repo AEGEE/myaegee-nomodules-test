@@ -1,0 +1,24 @@
+version: '3.2'
+
+services:
+    oms-frontend-builder:
+        restart: on-failure
+        build:
+        image: aegee/oms-frontend-builder
+        
+    oms-frontend-nginx:
+        restart: always
+        image: aegee/oms-frontend
+        # expose:
+        #     - 80
+        labels:
+            - "traefik.frontend.rule=Host:${SUBDOMAIN_FRONTEND}${BASE_URL};PathPrefix:/"
+            - "traefik.frontend.priority=11"
+            - "traefik.port=80"
+            - "traefik.backend=oms-frontend-nginx"
+            - "traefik.enable=true"
+
+networks:
+  default:
+    external:
+      name: OMS

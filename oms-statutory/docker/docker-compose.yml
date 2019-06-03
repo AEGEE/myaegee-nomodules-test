@@ -1,0 +1,49 @@
+version: '3.2'
+### OMS STATUTORY     #######################################
+services:
+    postgres-oms-statutory:
+        restart: always
+        image: postgres:10
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        expose:
+            - 5432
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: ${PW_POSTGRES}
+    
+    oms-statutory:
+        restart: always
+        image: aegee/oms-statutory
+        volumes:
+            - oms-statutory-media:/usr/app/media
+            - shared:/usr/app/shared:ro
+        links:
+            - postgres-oms-statutory
+        expose:
+            - 8084
+        environment:
+            BUGSNAG_KEY: a7dfed96a71033eca7f4469e8f88878b
+        secrets:
+            - mail_user
+            - mail_password
+        labels:
+            - "traefik.backend=oms-statutory"
+            - "traefik.port=8084"
+            - "traefik.frontend.rule=PathPrefix:/services/oms-statutory/api;PathPrefixStrip:/services/oms-statutory/api"
+            - "traefik.frontend.priority=110"
+            - "traefik.enable=true"
+
+
+volumes:
+    postgres:
+        driver: "local"
+    oms-statutory-media:
+        driver: "local"
+    shared:
+        driver: "local"
+
+networks:
+  default:
+    external:
+      name: OMS
