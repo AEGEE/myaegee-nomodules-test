@@ -22,8 +22,7 @@ services:
             - postgres-oms-events
         expose:
             - 8084
-        environment:
-            BUGSNAG_KEY: 6f6a7c00507fceca0818c48405dbd2a6
+        env_file: ./$PATH_OMS_EVENTS/.env
         secrets:
             - mail_user
             - mail_password

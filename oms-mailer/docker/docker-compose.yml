@@ -3,7 +3,7 @@ version: '3.2'
 services:
     oms-mailer:
         restart: unless-stopped
-        image: aegee/oms-mailer        
+        image: aegee/oms-mailer
         expose:
             - 4000
         # environment:
@@ -11,12 +11,12 @@ services:
         env_file: ./$PATH_OMS_MAILER/.env
         depends_on:
             - oms-mail-transfer-agent
-        # no traefik labels here, because we do not want 
+        # no traefik labels here, because we do not want
         # this API to be reachable from outside
 
     oms-mail-transfer-agent:
         restart: always
-        image: aegee/oms-mail-transfer-agent        
+        image: aegee/oms-mail-transfer-agent
         expose:
             - 25
         secrets:

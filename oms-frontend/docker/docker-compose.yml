@@ -3,9 +3,8 @@ version: '3.2'
 services:
     oms-frontend-builder:
         restart: on-failure
-        build:
         image: aegee/oms-frontend-builder
-        
+
     oms-frontend-nginx:
         restart: always
         image: aegee/oms-frontend

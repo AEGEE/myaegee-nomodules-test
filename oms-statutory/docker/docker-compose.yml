@@ -11,7 +11,7 @@ services:
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: ${PW_POSTGRES}
-    
+
     oms-statutory:
         restart: always
         image: aegee/oms-statutory
@@ -22,8 +22,7 @@ services:
             - postgres-oms-statutory
         expose:
             - 8084
-        environment:
-            BUGSNAG_KEY: a7dfed96a71033eca7f4469e8f88878b
+        env_file: ./$PATH_OMS_STATUTORY/.env
         secrets:
             - mail_user
             - mail_password
