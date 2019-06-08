@@ -16,14 +16,14 @@ defaultEntryPoints = ["http", "https"]
 
 
 ################################################################
-# HTTPS configuration 
+# HTTPS configuration
 ################################################################
 [acme]
 # Email address used for registration.
 #
 # Required
 #
-email = "myaegee@aegee.eu"
+email = "myaegee-admins@aegee.eu"
 # File or key used for certificates storage.
 #
 # Required
@@ -50,7 +50,7 @@ onDemand=true
 onHostRule=true
 
 #Alternatively, if we want the domains known in advance
-#(note: aegee.eu's DNS MUST point to the same IP where the 
+#(note: aegee.eu's DNS MUST point to the same IP where the
 #subdomains are pointing to)
 
 #[[acme.domains]]

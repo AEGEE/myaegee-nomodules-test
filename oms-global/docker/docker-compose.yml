@@ -2,6 +2,9 @@ version: "3.2"
 #TODO make sure all services always have the appropriate
 #       restart: on-failure
 #TODO: maybe add also the web interfaces for postgre, mongo, whichever?
+# oms-global: traefik, cachet, swagger
+# oms-utils: wiki, forum, survey
+# oms-dev: portainer, pgadmin, mongoadmin,...
 services:
 
 ### OMS TUNNEL        #######################################
@@ -9,10 +12,7 @@ services:
 
     traefik:
         restart: unless-stopped
-        build:
-          context: ./$PATH_OMS_GLOBAL/traefik/
-          dockerfile: ./Dockerfile.dev
-        image: aegee/traefik:dev
+        image: traefik:v1.7.4-alpine
         restart: always
         ports:
           - 80:80
@@ -21,6 +21,7 @@ services:
           - /var/run/docker.sock:/var/run/docker.sock:ro
           - ./secrets/acme.json:/etc/acme.json #we have to mount it, so no secrets
           - ./$PATH_OMS_GLOBAL/traefik/logs:/var/log/traefik/
+          - ./$PATH_OMS_GLOBAL/traefik/traefik.toml:/etc/traefik/traefik.toml
           #- shared_logs:/var/log/traefik/
 #        networks:
 #          - management
