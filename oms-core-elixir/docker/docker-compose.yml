@@ -3,7 +3,7 @@ version: '3.2'
 services:
     oms-core-elixir:
         restart: on-failure
-        image: aegee/oms-core-elixir
+        image: aegee/oms-core-elixir:fab
         depends_on:
             - postgres-oms-core-elixir
         expose:
@@ -20,6 +20,7 @@ services:
             - sendgrid_key
             - mail_password
             - mail_user
+            - db_password
 
 
     postgres-oms-core-elixir:

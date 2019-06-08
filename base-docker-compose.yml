@@ -69,6 +69,8 @@ secrets:
         file: secrets/sendgrid_key
     mail_password:
         file: secrets/sendgrid_key
+    db_password:
+        file: secrets/core-db_password
 
 networks:
   default:

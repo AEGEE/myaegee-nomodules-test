@@ -1,21 +1,28 @@
 version: '3.2'
 
 services:
-    oms-frontend-builder:
-        restart: on-failure
-        image: aegee/oms-frontend-builder
+    #    oms-frontend-builder:
+    #        restart: on-failure
+    #        image: aegee/oms-frontend-builder:latest
+    #        volumes:
+    #            - built-shit:/usr/app/src/dist
 
-    oms-frontend-nginx:
+    oms-frontend:
         restart: always
-        image: aegee/oms-frontend
+        image: aegee/oms-frontend:fab
         # expose:
         #     - 80
+        #volumes:
+        #    - built-shit:/usr/app/src/dist
         labels:
             - "traefik.frontend.rule=Host:${SUBDOMAIN_FRONTEND}${BASE_URL};PathPrefix:/"
             - "traefik.frontend.priority=11"
             - "traefik.port=80"
             - "traefik.backend=oms-frontend-nginx"
             - "traefik.enable=true"
+
+   #volumes:
+   #    built-shit:
 
 networks:
   default:
