@@ -18,7 +18,7 @@ services:
             - "traefik.frontend.rule=Host:${SUBDOMAIN_FRONTEND}${BASE_URL};PathPrefix:/"
             - "traefik.frontend.priority=11"
             - "traefik.port=80"
-            - "traefik.backend=oms-frontend-nginx"
+            - "traefik.backend=oms-frontend"
             - "traefik.enable=true"
 
    #volumes:
