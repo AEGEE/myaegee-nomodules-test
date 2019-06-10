@@ -10,31 +10,26 @@ services:
       environment:
         MYSQL_DATABASE: "cachet"
         MYSQL_USER: "cachet"
-        MYSQL_PASSWORD: "5ecr3t"
+        MYSQL_PASSWORD: ${PW_CACHET}
         MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       volumes:
-        - database:/var/lib/mysql
+        - ./$PATH_OMS_STATUS/maria-provision:/docker-entrypoint-initdb.d:ro
+        - maria-statuspage:/var/lib/mysql
 
     statuspage:
       restart: always
-      # build:
-      #   context: ./$PATH_OMS_GLOBAL/cachet
-      #   dockerfile: ./docker/app/Dockerfile
-      image: aegee/statuspage:latest
-      env_file: ./$PATH_OMS_STATUS/cachet/.env
-      #volumes:
-      #  - ./$PATH_OMS_STATUS/cachet/.env:/app/.env:rw
+      image: aegee/statuspage:sl
+      volumes:
+        - ./$PATH_OMS_STATUS/cachet/.env:/app/.env:rw
       depends_on:
         - maria-statuspage
         - redis-statuspage-cache
 
-
     nginx-statuspage:
       restart: always
-      # build:
-      #   context: ./$PATH_OMS_GLOBAL/cachet
-      #   dockerfile: ./docker/nginx/Dockerfile
-      image: aegee/nginx-statuspage:latest
+      image: aegee/nginx-webserver:latest
+      environment:
+          PHPFPM_HOST: statuspage
       depends_on:
         - statuspage
       expose:
@@ -51,7 +46,7 @@ services:
       image: redis:5-alpine
 
 volumes:
-  database:
+  maria-statuspage:
     driver: local
 
 networks:
