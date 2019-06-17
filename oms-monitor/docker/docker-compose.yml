@@ -1,0 +1,27 @@
+version: '3.2'
+services:
+
+    grafana:
+        restart: on-failure
+        image: grafana/grafana:6.2.2
+        volumes:
+            - grafana-storage:/var/lib/grafana
+        environment:
+            GF_SECURITY_ADMIN_PASSWORD: ${PW_GRAFANA}
+            GF_SERVER_ROOT_URL: "https://${SUBDOMAIN_GRAFANA}${BASE_URL}/"
+            GF_INSTALL_PLUGINS: "raintank-worldping-app,grafana-simple-json-datasource,grafana-clock-panel"
+        labels:
+            - "traefik.backend=grafana"
+            - "traefik.port=3000"
+            - "traefik.frontend.rule=Host:${SUBDOMAIN_GRAFANA}${BASE_URL};PathPrefix:/"
+            - "traefik.frontend.priority=110"
+            - "traefik.enable=true"
+
+volumes:
+    grafana-storage:
+        driver: "local"
+
+networks:
+  default:
+    external:
+      name: OMS
