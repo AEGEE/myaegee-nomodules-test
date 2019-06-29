@@ -1,6 +1,20 @@
 version: "3.2"
 
 services:
+
+  maria-bitwarden:
+    image: mariadb:10.4
+    restart: on-failure
+    environment:
+      MYSQL_DATABASE: "bitwarden"
+      MYSQL_USER: "warden"
+      MYSQL_PASSWORD: ${PW_BITWARDEN}
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    volumes:
+      - maria-bitwarden:/var/lib/mysql
+    ports:
+      - 8798:3306
+
   bitwarden:
     image: bitwardenrs/server:latest 
     restart: on-failure
@@ -20,12 +34,19 @@ services:
       - SMTP_SSL=true 
       - SMTP_USERNAME=${USER_SENDGRID}
       - SMTP_PASSWORD=${PW_SENDGRID}
+      - RUST_BACKTRACE=1
+      - DATABASE_URL='mysql://warden:${PW_BITWARDEN}@maria-bitwarden/bitwarden'
+      - ENABLE_DB_WAL='false'
     labels:
       - traefik.enable=true
       - traefik.backend=bitwarden
       - traefik.port=80
       - traefik.frontend.rule=Host:${SUBDOMAIN_BITWARDEN}${BASE_URL}
       - traefik.frontend.priority=20
+
+volumes:
+  maria-bitwarden:
+    driver: local
 
 networks:
   default:
