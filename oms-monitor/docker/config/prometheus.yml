@@ -18,11 +18,15 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
-
+  - job_name: 'base-metrics'
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
-
     static_configs:
       - targets: ['traefik:8080', 'cadvisor:8080', 'node-exporter:9100']
+
+  - job_name: 'api-endpoints'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+        - targets: ['oms-core-elixir:4000', 'oms-events:8084', 'oms-statutory:8084']
 

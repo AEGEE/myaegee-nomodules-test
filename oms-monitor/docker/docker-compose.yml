@@ -6,6 +6,8 @@ services:
         image: grafana/grafana:6.2.2
         volumes:
             - grafana-storage:/var/lib/grafana
+            - ./${PATH_OMS_MONITOR}/gf-dashboards:/var/lib/grafana/dashboards
+            - ./${PATH_OMS_MONITOR}/config/gf-provisioning:/etc/grafana/provisioning
         environment:
             GF_SECURITY_ADMIN_PASSWORD: ${PW_GRAFANA}
             GF_SERVER_ROOT_URL: "https://${SUBDOMAIN_GRAFANA}${BASE_URL}/"
@@ -22,7 +24,7 @@ services:
         image: prom/prometheus:v2.10.0
         volumes:
             - prometheus-storage:/prometheus
-            - ./${PATH_OMS_MONITOR}/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+            - ./${PATH_OMS_MONITOR}/config/prometheus.yml:/etc/prometheus/prometheus.yml:ro
         labels:
             - "traefik.backend=prometheus"
             - "traefik.port=9090"
