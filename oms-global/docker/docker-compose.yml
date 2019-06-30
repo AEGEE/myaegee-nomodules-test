@@ -14,6 +14,7 @@ services:
         restart: unless-stopped
         image: traefik:v1.7.4-alpine
         restart: always
+        command: --web.metrics.prometheus
         ports:
           - 80:80
           - 443:443
