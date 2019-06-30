@@ -27,8 +27,6 @@ services:
       CONFIG_FILE: /usr/share/curator/config/curator.yml
       COMMAND: /usr/share/curator/config/delete_log_files_curator.yml
       UNIT_COUNT: 2
-    networks:
-      - elk
     depends_on:
       - elasticsearch
 
@@ -135,7 +133,7 @@ services:
     depends_on:
         - logstash
 
-#   filebeat-auth: #FIND A BETTER WAY?!
+#   filebeat-auth: #FIND A BETTER WAY?! auditbeat?
 #     #image: docker.elastic.co/beats/metricbeat:6.4.2
 #     build:
 #       context: ./$PATH_OMS_ELASTIC/filebeat/
