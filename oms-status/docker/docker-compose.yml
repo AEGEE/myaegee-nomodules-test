@@ -10,7 +10,7 @@ services:
       environment:
         MYSQL_DATABASE: "cachet"
         MYSQL_USER: "cachet"
-        MYSQL_PASSWORD: ${PW_CACHET}
+        MYSQL_PASSWORD: ${PW_STATUSPAGE}
         MYSQL_RANDOM_ROOT_PASSWORD: "yes"
       volumes:
         - ./$PATH_OMS_STATUS/maria-provision:/docker-entrypoint-initdb.d:ro
