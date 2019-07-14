@@ -105,9 +105,9 @@ services:
   #     - traefik.frontend.rule=Host:${SUBDOMAIN_APIDOCS}${BASE_URL}
   #     - traefik.frontend.priority=20
 
-volumes:
-  drone-files:
-    driver: local
+#volumes:
+#  drone-files:
+#    driver: local
 
 networks:
   default:

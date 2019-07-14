@@ -14,7 +14,7 @@ services:
       - maria-mediawiki:/var/lib/mysql
 
   mediawiki:
-    image: mediawiki:1.30
+    image: mediawiki:1.33
     restart: always
     expose:
         - 80
@@ -23,7 +23,7 @@ services:
         # After initial setup, download LocalSettings.php to the same directory as
         # this yaml and uncomment the following line and use compose to restart
         # the mediawiki service
-#          - ./LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
 #        networks:
 #          - management
     labels:
@@ -34,7 +34,7 @@ services:
       - traefik.frontend.priority=20
 
 volumes:
-  maria-statuspage:
+  maria-mediawiki:
     driver: local
 
 networks:
