@@ -6,6 +6,7 @@ current-config.yml
 would-be-config.yml
 
 secrets/*
-
+ 
+*bw-data*
 # exception to the rule
 !secrets/.gitkeep 
