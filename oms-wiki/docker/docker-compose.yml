@@ -19,11 +19,12 @@ services:
     expose:
         - 80
     volumes:
-      - /var/www/html/images
+      - mediawiki-images:/var/www/html/images
         # After initial setup, download LocalSettings.php to the same directory as
         # this yaml and uncomment the following line and use compose to restart
-        # the mediawiki service
-      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+        # the mediawiki service. Do not use the example out of the box because as
+        # of now the db migration is not performed! Install it as written above
+      - ./${PATH_OMS_WIKI}/LocalSettings.php:/var/www/html/LocalSettings.php
 #        networks:
 #          - management
     labels:
@@ -34,6 +35,8 @@ services:
       - traefik.frontend.priority=20
 
 volumes:
+  mediawiki-images:
+    driver: local
   maria-mediawiki:
     driver: local
 
