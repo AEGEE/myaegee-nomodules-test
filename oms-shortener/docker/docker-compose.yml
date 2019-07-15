@@ -26,7 +26,7 @@ services:
             YOURLS_SITE: https://${SUBDOMAIN_SHORTENER}${BASE_URL}
             YOURLS_USER: admin
             YOURLS_PASS: ${PW_YOURLS}
-            YOURLS_PRIVATE: true
+            YOURLS_PRIVATE: "true"
         labels:
            - "traefik.backend=yourls"
            - "traefik.port=80"
