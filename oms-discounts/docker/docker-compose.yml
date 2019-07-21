@@ -1,0 +1,44 @@
+version: '3.2'
+### OMS DISCOUNTS     #######################################
+services:
+  postgres-oms-discounts:
+    image: postgres:10
+    volumes:
+      - postgres-oms-discounts:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "${PW_POSTGRES}"
+
+  oms-discounts:
+    image: aegee/oms-discounts:fab
+    volumes:
+      - oms-discounts-media:/usr/app/media
+      - shared:/usr/app/shared:ro
+    depends_on:
+      - postgres-oms-discounts
+    expose:
+      - "8084"
+    env_file: ./${PATH_OMS_DISCOUNTS}/.env
+    secrets:
+      - mail_user
+      - mail_password
+    labels:
+      - "traefik.backend=oms-discounts"
+      - "traefik.port=8084"
+      - "traefik.frontend.rule=PathPrefix:/services/oms-discounts/api;PathPrefixStrip:/services/oms-discounts/api"
+      - "traefik.frontend.priority=110"
+      - "traefik.enable=true"
+
+volumes:
+  postgres-oms-discounts:
+    driver: local
+  oms-discounts-media:
+    driver: local
+  shared:
+    driver: local
+networks:
+  default:
+    external:
+      name: OMS
