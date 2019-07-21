@@ -7,14 +7,14 @@ services:
     depends_on:
       - postgres-oms-core-elixir
     expose:
-      - 4000
+      - "4000"
     labels:
       - "traefik.frontend.rule=PathPrefix:/services/oms-core-elixir/api;PathPrefixStrip:/services/oms-core-elixir/api"
       - "traefik.frontend.priority=101"
       - "traefik.port=4000"
       - "traefik.backend=oms-core-elixir"
       - "traefik.enable=true"
-    env_file: ./$PATH_OMS_CORE_ELIXIR/.env
+    env_file: ./${PATH_OMS_CORE_ELIXIR}/.env
     secrets:
       - jwt_key
       - sendgrid_key
@@ -29,14 +29,14 @@ services:
     volumes:
       - postgres-oms-core-elixir:/var/lib/postgresql/data
     expose:
-      - 5432
+      - "5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${PW_POSTGRES}
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "${PW_POSTGRES}"
 
 volumes:
   postgres-oms-core-elixir:
-    driver: "local"
+    driver: local
 
 networks:
   default:

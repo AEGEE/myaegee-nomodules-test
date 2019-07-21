@@ -5,10 +5,10 @@ services:
     restart: unless-stopped
     image: aegee/oms-mailer
     expose:
-      - 4000
+      - "4000"
     # environment:
     #     MIX_ENV: ${MIX_ENV}
-    env_file: ./$PATH_OMS_MAILER/.env
+    env_file: ./${PATH_OMS_MAILER}/.env
     depends_on:
       - oms-mail-transfer-agent
     # no traefik labels here, because we do not want
@@ -18,7 +18,7 @@ services:
     restart: always
     image: aegee/oms-mail-transfer-agent
     expose:
-      - 25
+      - "25"
     secrets:
       - mail_password
       - mail_user

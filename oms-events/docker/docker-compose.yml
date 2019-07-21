@@ -7,10 +7,10 @@ services:
     volumes:
       - postgres-events:/var/lib/postgresql/data
     expose:
-      - 5432
+      - "5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${PW_POSTGRES}
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "${PW_POSTGRES}"
 
   oms-events:
     restart: on-failure
@@ -21,8 +21,8 @@ services:
     links:
       - postgres-oms-events
     expose:
-      - 8084
-    env_file: ./$PATH_OMS_EVENTS/.env
+      - "8084"
+    env_file: ./${PATH_OMS_EVENTS}/.env
     secrets:
       - mail_user
       - mail_password
@@ -35,11 +35,11 @@ services:
 
 volumes:
   postgres-events:
-    driver: "local"
+    driver: local
   oms-events-media:
-    driver: "local"
+    driver: local
   shared:
-    driver: "local"
+    driver: local
 
 networks:
   default:

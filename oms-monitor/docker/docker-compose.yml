@@ -9,7 +9,7 @@ services:
       - ./${PATH_OMS_MONITOR}/gf-dashboards:/var/lib/grafana/dashboards
       - ./${PATH_OMS_MONITOR}/config/gf-provisioning:/etc/grafana/provisioning
     environment:
-      GF_SECURITY_ADMIN_PASSWORD: ${PW_GRAFANA}
+      GF_SECURITY_ADMIN_PASSWORD: "${PW_GRAFANA}"
       GF_SERVER_ROOT_URL: "https://${SUBDOMAIN_GRAFANA}${BASE_URL}/"
       GF_INSTALL_PLUGINS: "raintank-worldping-app,grafana-simple-json-datasource,grafana-clock-panel,grafana-piechart-panel"
     labels:
@@ -57,13 +57,13 @@ services:
       - /sys:/host/sys:ro
     #command: '--collector.procfs=/host/proc --collector.sysfs=/host/sys'
     expose:
-      - 9100
+      - "9100"
 
 volumes:
   prometheus-storage:
-    driver: "local"
+    driver: local
   grafana-storage:
-    driver: "local"
+    driver: local
 
 networks:
   default:
