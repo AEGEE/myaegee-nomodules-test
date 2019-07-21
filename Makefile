@@ -2,8 +2,10 @@
 default:
 	echo 'Most common options are bootstrap, start, monitor, live_refresh, restart, nuke_dev, clean (cleans untagged/unnamed images)'
 
-debug:
+config:
 	./helper.sh -v --debug
+
+debug: config
 
 bump:
 	./helper.sh --bump
