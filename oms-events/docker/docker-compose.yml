@@ -1,45 +1,45 @@
 version: '3.2'
 ### OMS EVENTS   #######################################
 services:
-    postgres-oms-events:
-        restart: always
-        image: postgres:10
-        volumes:
-            - postgres-events:/var/lib/postgresql/data
-        expose:
-            - 5432
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: ${PW_POSTGRES}
+  postgres-oms-events:
+    restart: always
+    image: postgres:10
+    volumes:
+      - postgres-events:/var/lib/postgresql/data
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${PW_POSTGRES}
 
-    oms-events:
-        restart: on-failure
-        image: aegee/oms-events:fab
-        volumes:
-            - oms-events-media:/usr/app/media
-            - shared:/usr/app/shared:ro
-        links:
-            - postgres-oms-events
-        expose:
-            - 8084
-        env_file: ./$PATH_OMS_EVENTS/.env
-        secrets:
-            - mail_user
-            - mail_password
-        labels:
-            - "traefik.backend=oms-events"
-            - "traefik.port=8084"
-            - "traefik.frontend.rule=PathPrefix:/services/oms-events/api;PathPrefixStrip:/services/oms-events/api"
-            - "traefik.frontend.priority=110"
-            - "traefik.enable=true"
+  oms-events:
+    restart: on-failure
+    image: aegee/oms-events:fab
+    volumes:
+      - oms-events-media:/usr/app/media
+      - shared:/usr/app/shared:ro
+    links:
+      - postgres-oms-events
+    expose:
+      - 8084
+    env_file: ./$PATH_OMS_EVENTS/.env
+    secrets:
+      - mail_user
+      - mail_password
+    labels:
+      - "traefik.backend=oms-events"
+      - "traefik.port=8084"
+      - "traefik.frontend.rule=PathPrefix:/services/oms-events/api;PathPrefixStrip:/services/oms-events/api"
+      - "traefik.frontend.priority=110"
+      - "traefik.enable=true"
 
 volumes:
-    postgres-events:
-        driver: "local"
-    oms-events-media:
-        driver: "local"
-    shared:
-        driver: "local"
+  postgres-events:
+    driver: "local"
+  oms-events-media:
+    driver: "local"
+  shared:
+    driver: "local"
 
 networks:
   default:

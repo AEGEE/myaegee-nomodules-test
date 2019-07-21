@@ -65,7 +65,7 @@ services:
     image: fenglc/pgadmin4:2.0
     restart: on-failure
     expose:
-        - 5050
+      - 5050
     labels:
       - traefik.enable=true
       - traefik.backend=pgadmin
