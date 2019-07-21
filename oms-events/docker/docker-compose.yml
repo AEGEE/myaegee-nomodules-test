@@ -5,7 +5,7 @@ services:
     restart: always
     image: postgres:10
     volumes:
-      - postgres-events:/var/lib/postgresql/data
+      - postgres-oms-events:/var/lib/postgresql/data
     expose:
       - "5432"
     environment:
@@ -18,7 +18,7 @@ services:
     volumes:
       - oms-events-media:/usr/app/media
       - shared:/usr/app/shared:ro
-    links:
+    depends_on:
       - postgres-oms-events
     expose:
       - "8084"
@@ -34,7 +34,7 @@ services:
       - "traefik.enable=true"
 
 volumes:
-  postgres-events:
+  postgres-oms-events:
     driver: local
   oms-events-media:
     driver: local
