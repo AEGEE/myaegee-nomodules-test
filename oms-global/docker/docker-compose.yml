@@ -1,4 +1,4 @@
-version: "3.2"
+version: "2.4"
 
 # oms-global: traefik, cachet, swagger
 # oms-utils: wiki, forum, survey

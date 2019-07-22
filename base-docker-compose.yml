@@ -1,9 +1,6 @@
-version: "3.2"
+version: "2.4"
 
 #This docker-compose file contains utility containers not vital for the working of the web application, such as an orchestrator manager (portainer) and a continuous integration app (drone)
-
-#TODO: maybe add also the swagger-editor and swaggerapi visualiser
-#TODO: logging containers, consul...
 
 services:
 
@@ -16,11 +13,11 @@ services:
     expose:
       - 80
     labels:
-      - traefik.enable=true
-      - traefik.backend=portal
-      - traefik.port=80
-      - traefik.frontend.rule=Host:${SUBDOMAIN_PORTAL}${BASE_URL}
-      - traefik.frontend.priority=20
+      - "traefik.enable=true"
+      - "traefik.backend=portal"
+      - "traefik.port=80"
+      - "traefik.frontend.rule=Host:${SUBDOMAIN_PORTAL}${BASE_URL}"
+      - "traefik.frontend.priority=20"
 
 secrets:
     jwt_key:

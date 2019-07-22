@@ -1,4 +1,4 @@
-version: '3.2'
+version: "2.4"
 services:
 
   grafana:
@@ -49,6 +49,7 @@ services:
     #   - "traefik.frontend.rule=Host:${SUBDOMAIN_KIBANA}${BASE_URL};PathPrefix:/"
     #   - "traefik.frontend.priority=110"
     #   - "traefik.enable=true"
+    mem_limit: 250m
 
   node-exporter:
     image: prom/node-exporter:v0.18.1

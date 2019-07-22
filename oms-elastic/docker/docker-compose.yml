@@ -1,4 +1,4 @@
-version: '3.2'
+version: "2.4"
 
 services:
 
@@ -16,6 +16,8 @@ services:
       - "9300:9300"
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    mem_limit: 750m
+    #cpu_count: 1
 
   curator:
     build:
@@ -60,6 +62,7 @@ services:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     depends_on:
       - elasticsearch
+    mem_limit: 750m
 
   kibana:
     build:
